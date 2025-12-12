@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SIMPLE — Video Vigilancia</title>
+
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0A1020;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.10);
+      --text:#EAF0FF;
+      --muted: rgba(234,240,255,.72);
+      --muted2: rgba(234,240,255,.55);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+      --radius2: 22px;
+      --wa:#25D366;
+      --wa2:#1fb85a;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 700px at 15% 0%, rgba(80,120,255,.20), transparent 55%),
+        radial-gradient(900px 600px at 85% 10%, rgba(0,200,180,.14), transparent 55%),
+        radial-gradient(900px 700px at 50% 90%, rgba(120,120,255,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    .wrap{
+      width:min(980px, 100%);
+      margin:0 auto;
+      padding: 18px 16px 34px;
+    }
+
+    /* Header */
+    .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      padding: 8px 2px 12px;
+    }
+
+    .brand{
+      position:relative;
+      display:inline-block;
+      line-height:1;
+      user-select:none;
+    }
+
+    .brand .word{
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: .34em;
+      font-weight: 500;
+      font-size: 26px;
+      text-transform: uppercase;
+      position:relative;
+      display:inline-block;
+      padding-right: 2px;
+    }
+
+    .brand .sub{
+      margin-top: 5px;
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(234,240,255,.70);
+      display:block;
+      /* “pegado” abajo, sutil */
+      transform: translateY(-2px);
+    }
+
+    /* Shimmer sutil en diagonal (B de VideoVigilancia -> E de SIMPLE aprox) */
+    .brand .glow{
+      position:absolute;
+      inset:-6px -10px -8px -10px;
+      pointer-events:none;
+      border-radius: 14px;
+      overflow:hidden;
+      mix-blend-mode: screen;
+      opacity:.65;
+      filter: blur(.3px);
+    }
+    .brand .glow::before{
+      content:"";
+      position:absolute;
+      width: 120px;
+      height: 240%;
+      left:-35%;
+      top:-70%;
+      background: linear-gradient(135deg,
+        transparent 0%,
+        rgba(255,255,255,.0) 20%,
+        rgba(255,255,255,.45) 48%,
+        rgba(255,255,255,.0) 70%,
+        transparent 100%);
+      transform: rotate(12deg);
+      animation: shimmer 5.2s ease-in-out infinite;
+      opacity:.85;
+    }
+    @keyframes shimmer{
+      0%   { transform: translateX(-35%) rotate(12deg); opacity:.15; }
+      18%  { opacity:.55; }
+      35%  { opacity:.85; }
+      55%  { opacity:.35; }
+      100% { transform: translateX(155%) rotate(12deg); opacity:.12; }
+    }
+
+    .waTop{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(37,211,102,.35);
+      background: linear-gradient(180deg, rgba(37,211,102,.98), rgba(31,184,90,.96));
+      color:#06210f;
+      font-weight:700;
+      font-size: 14px;
+      text-decoration:none;
+      box-shadow: 0 12px 28px rgba(37,211,102,.22);
+      transform: translateY(2px);
+    }
+    .waTop:active{ transform: translateY(3px) scale(.99); }
+
+    /* Sections */
+    .section{
+      margin-top: 14px;
+      padding: 18px 16px;
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+    }
+
+    .hero{
+      padding: 22px 18px 18px;
+    }
+
+    .h1{
+      margin: 6px 0 10px;
+      font-size: 30px;
+      line-height: 1.12;
+      letter-spacing: .01em;
+      font-weight: 560;
+      text-align:center;
+      /* un poco más “flaquito” */
+      font-stretch: expanded;
+    }
+
+    .tagline{
+      text-align:center;
+      font-size: 12px;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: rgba(234,240,255,.68);
+      margin: 8px 0 14px;
+    }
+
+    .chips{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin: 10px 0 2px;
+    }
+    .chip{
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,240,255,.82);
+      font-size: 13px;
+    }
+
+    /* Puntos (lista) en vez de “cuadros” */
+    .bullets{
+      width:min(520px, 100%);
+      margin: 18px auto 0;
+      padding: 0;
+      list-style:none;
+      color: rgba(234,240,255,.85);
+    }
+    .bullets li{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding: 10px 2px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .bullets li:last-child{ border-bottom:0; }
+    .dot{
+      width:7px; height:7px;
+      border-radius: 99px;
+      margin-top: 7px;
+      background: rgba(234,240,255,.55);
+      box-shadow: 0 0 0 4px rgba(234,240,255,.07);
+      flex: 0 0 auto;
+    }
+
+    /* Titles */
+    .kicker{
+      margin: 4px 0 12px;
+      font-size: 12px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(234,240,255,.55);
+      text-align:center;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.04);
+      padding: 14px 14px;
+      min-height: 112px;
+    }
+    .card h3{
+      margin:0 0 6px;
+      font-size: 16px;
+      font-weight: 650;
+      line-height:1.15;
+    }
+    .card p{
+      margin:0;
+      color: rgba(234,240,255,.70);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .pill{
+      display:inline-block;
+      margin-top: 10px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color: rgba(234,240,255,.78);
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+
+    /* Modelos (con imágenes) */
+    .types{
+      margin-top: 14px;
+    }
+    .types-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .type-item{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.04);
+      padding: 14px 14px 12px;
+      overflow:hidden;
+    }
+    .type-name{
+      font-size: 16px;
+      font-weight: 680;
+      margin-bottom: 10px;
+      text-align:center;
+    }
+
+    .type-image{
+      width:100%;
+      height: 138px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      display:block;
+      background: #0b0f1c;
+    }
+    .type-desc{
+      margin: 10px 0 0;
+      color: rgba(234,240,255,.70);
+      font-size: 13px;
+      text-align:center;
+    }
+
+    /* Ocultas: dos fotos lado a lado */
+    .miniGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .miniGrid .type-image{
+      height: 108px; /* más bajitas para que no ocupe tanto */
+      object-fit: cover;
+    }
+
+    /* Tabla comparativa */
+    .tableTitle{
+      margin: 18px 0 10px;
+      font-size: 12px;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: rgba(234,240,255,.55);
+      text-align:center;
+    }
+    .table{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+    }
+    table{
+      width:100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td{
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      vertical-align: top;
+    }
+    th{
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 11px;
+      color: rgba(234,240,255,.65);
+      background: rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom: 0; }
+    td{ color: rgba(234,240,255,.78); }
+    td:first-child{ width: 28%; }
+
+    /* Precio / promo */
+    .promo{
+      margin-top: 16px;
+      padding: 16px 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(37,211,102,.22);
+      background: linear-gradient(180deg, rgba(37,211,102,.10), rgba(255,255,255,.03));
+      text-align:center;
+    }
+    .promo .label{
+      font-size: 12px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: rgba(234,240,255,.62);
+      margin-bottom: 8px;
+    }
+    .promo .price{
+      font-size: 26px;
+      font-weight: 780;
+      letter-spacing: .01em;
+      margin: 0;
+    }
+    .promo .note{
+      margin: 8px 0 0;
+      color: rgba(234,240,255,.68);
+      font-size: 12px;
+    }
+
+    .waBottom{
+      margin-top: 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width: 100%;
+      max-width: 520px;
+      padding: 14px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(37,211,102,.35);
+      background: linear-gradient(180deg, rgba(37,211,102,.98), rgba(31,184,90,.96));
+      color:#06210f;
+      font-weight:800;
+      text-decoration:none;
+      box-shadow: 0 12px 28px rgba(37,211,102,.22);
+    }
+    .waBottom:active{ transform: scale(.99); }
+
+    .place{
+      margin-top: 14px;
+      text-align:center;
+      font-size: 12px;
+      color: rgba(234,240,255,.48);
+      letter-spacing: .08em;
+    }
+
+    /* Mobile polishing */
+    @media (max-width: 420px){
+      .h1{ font-size: 28px; }
+      .grid2, .types-grid{ gap: 10px; }
+      .type-image{ height: 132px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- HEADER -->
+    <div class="top">
+      <div class="brand" aria-label="SIMPLE">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="word">SIMPLE</div>
+        <span class="sub">Video Vigilancia</span>
+      </div>
+
+      <a class="waTop" id="waTop" href="#" aria-label="WhatsApp">
+        WhatsApp
+      </a>
+    </div>
+
+    <!-- INICIO -->
+    <section class="section hero" id="inicio">
+      <h1 class="h1">Instalación profesional de cámaras de seguridad.</h1>
+      <div class="tagline">Precisión incluso en lo imprevisto.</div>
+
+      <div class="chips" aria-label="Atención 24 horas">
+        <span class="chip">Consultas 24 horas</span>
+        <span class="chip">Servicio postventa 24 horas</span>
+      </div>
+
+      <!-- Lista (en vez de cuadros) -->
+      <ul class="bullets" aria-label="Servicios principales">
+        <li><span class="dot"></span><span>Cámara interior / exterior (discreta o visible según lo buscado).</span></li>
+        <li><span class="dot"></span><span>Acceso remoto seguro (celular o PC, estés donde estés).</span></li>
+        <li><span class="dot"></span><span>Grabación y respaldo de video (continuo o por movimiento).</span></li>
+      </ul>
+    </section>
+
+    <!-- SISTEMAS Y MODELOS -->
+    <section class="section" id="sistemas-modelos">
+      <div class="kicker">Sistemas y modelos</div>
+
+      <!-- SISTEMAS (título central) -->
+      <div class="kicker" style="margin-top:0; margin-bottom:10px; color: rgba(234,240,255,.62);">Sistemas</div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Sistema Analógico HD (CCTV)</h3>
+          <p>Sistema cableado, estable y económico.</p>
+          <span class="pill">Estable · Mayor seguridad</span>
+        </div>
+
+        <div class="card">
+          <h3>Sistema IP (con Wi-Fi)</h3>
+          <p>Instalación moderna con acceso remoto seguro.</p>
+          <span class="pill">Económico</span>
+        </div>
+      </div>
+
+      <!-- MODELOS (separado) -->
+      <div class="kicker" style="margin-top:16px; margin-bottom:10px; color: rgba(234,240,255,.62);">Modelos</div>
+
+      <div class="types">
+        <div class="types-grid">
+          <!-- Bullet -->
+          <div class="type-item">
+            <div class="type-name">Cámaras Bullet</div>
+            <img src="images/bullet.webp" class="type-image" alt="Cámara Bullet">
+            <p class="type-desc">Alcance y presencia visible.</p>
+          </div>
+
+          <!-- Domo -->
+          <div class="type-item">
+            <div class="type-name">Cámaras Domo</div>
+            <img src="images/domo.jpg" class="type-image" alt="Cámara Domo">
+            <p class="type-desc">Compactas y discretas para interior.</p>
+          </div>
+
+          <!-- PTZ -->
+          <div class="type-item">
+            <div class="type-name">Cámaras 360° / PTZ</div>
+            <img src="images/ptz.png" class="type-image" alt="Cámara PTZ 360">
+            <p class="type-desc">Cobertura total, movimiento y zoom.</p>
+          </div>
+
+          <!-- Ocultas: dos fotos lado a lado -->
+          <div class="type-item">
+            <div class="type-name">Cámaras ocultas</div>
+            <div class="miniGrid" aria-label="Ejemplos de cámaras ocultas">
+              <img src="images/oculta-cargador.jpg" class="type-image" alt="Cámara oculta en cargador">
+              <img src="images/oculta-lampara.jpg" class="type-image" alt="Cámara oculta en lámpara">
+            </div>
+            <p class="type-desc">Integradas en objetos comunes.</p>
+          </div>
+        </div>
+
+        <!-- Tabla comparativa con título -->
+        <div class="tableTitle">Cuadro comparativo</div>
+        <div class="table" role="region" aria-label="Cuadro comparativo de modelos">
+          <table>
+            <thead>
+              <tr>
+                <th>Modelo</th>
+                <th>Ventaja</th>
+                <th>Mejor uso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bullet</td>
+                <td>Alcance y disuasión</td>
+                <td>Frentes y patios</td>
+              </tr>
+              <tr>
+                <td>Domo</td>
+                <td>Discreto y resistente</td>
+                <td>Interiores</td>
+              </tr>
+              <tr>
+                <td>PTZ</td>
+                <td>Cobertura amplia</td>
+                <td>Áreas grandes</td>
+              </tr>
+              <tr>
+                <td>Ocultas</td>
+                <td>Invisible al ambiente</td>
+                <td>Monitoreo discreto</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin:12px 4px 0; text-align:center; color: rgba(234,240,255,.55); font-size:12px;">
+          Si tenés dudas sobre qué elegir, escribime y te asesoro.
+        </p>
+      </div>
+
+      <!-- Promo + botón WhatsApp cerca del precio -->
+      <div class="promo" id="promo">
+        <div class="label">Promoción · Diciembre 2025</div>
+        <p class="price">Instalación hogareña por cámara: $90.000</p>
+        <p class="note">Coordinamos por WhatsApp y lo ajustamos según tu espacio.</p>
+
+        <a class="waBottom" id="waBottom" href="#">
+          Contactar por WhatsApp
+        </a>
+
+        <div class="place">Ciudad de Buenos Aires · Mar del Plata</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // WhatsApp con texto predeterminado (como pediste)
+    const msg = encodeURIComponent(
+      'Hola, ¿cómo estás? Quiero que juntos pensemos qué opciones tendría en mi caso y/o que me ayudes a entender algunos conceptos sobre lo ofrecido en la página :)'
+    );
+    const phone = '5491160060314'; // AR +54 9 + número
+
+    const waLink = `https://wa.me/${phone}?text=${msg}`;
+
+    const waTop = document.getElementById('waTop');
+    const waBottom = document.getElementById('waBottom');
+
+    waTop.href = waLink;
+    waBottom.href = waLink;
+  </script>
+</body>
+</html>
