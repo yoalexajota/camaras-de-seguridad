@@ -25,8 +25,17 @@ img { display: block; max-width: 100%; }
 
 /* HEADER */
 .header { position: sticky; top: 0; z-index: 50; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid var(--linea); backdrop-filter: blur(8px); }
-.header-contenido { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; }
+.header-contenido { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 120px;
+  width: auto;
+  display: block;
+}
 .nav { display: flex; gap: 34px; text-transform: uppercase; font-size: 1.1rem; }
 .nav a:hover { color: var(--amarillo); }
 
@@ -43,7 +52,7 @@ img { display: block; max-width: 100%; }
 .boton-contacto { background: #050505; color: var(--amarillo); }
 
 /* HERO - COMPACTO Y GRANDE */
-.hero { min-height: 70vh; display: flex; align-items: center; padding: 50px 0; background-color: var(--negro); }
+.hero { min-height: 64vh; display: flex; align-items: center; padding: 50px 0; background-color: var(--negro); }
 .hero-grid { width: min(100% - 32px, var(--contenedor)); margin-inline: auto; }
 h1 { margin-bottom: 30px; line-height: 0.8; }
 h1 .linea { display: block; font-size: 7.5rem; }
@@ -51,13 +60,35 @@ h1 .linea { display: block; font-size: 7.5rem; }
 .hero-botones { display: flex; gap: 20px; }
 
 /* SERVICIOS - MÁS CERCA Y PROMINENTES */
-.servicios { padding: 40px 0 80px 0; background: #050505; margin-top: -50px; }
+.servicios { padding: 70px 0 110px 0; background: #050505; margin-top: -50px; }
 .servicios-mini { text-align: center; color: var(--amarillo); letter-spacing: 0.2em; margin-bottom: 50px; font-size: 1.3rem; }
 .tarjetas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: min(100% - 32px, var(--contenedor)); margin-inline: auto; }
 .tarjeta { padding: 50px 40px; border-radius: 4px; border: 2px solid #333; background: var(--negro-suave); }
 .tarjeta h3 { font-size: 2.5rem; color: var(--blanco); margin-bottom: 15px; }
 .tarjeta p { font-family: Arial, sans-serif; color: var(--gris); font-size: 1.2rem; line-height: 1.6; }
+.tarjeta-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--amarillo);
+  color: #050505;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+}
 
+.tarjeta h3 {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.tarjeta p {
+  font-size: 1rem;
+  line-height: 1.55;
+}
 /* CONTACTO */
 .contacto { padding: 80px 0; background: var(--amarillo); color: #050505; }
 .contacto-contenido { display: flex; align-items: center; justify-content: space-between; width: min(100% - 32px, var(--contenedor)); margin-inline: auto; }
