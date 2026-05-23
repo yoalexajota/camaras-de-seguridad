@@ -1,448 +1,74 @@
 :root {
   --negro: #050505;
   --negro-suave: #0d0d0d;
-
   --blanco: #f3f3f3;
   --gris: #cfcfcf;
-
   --amarillo: #f5c400;
   --amarillo-oscuro: #c89f00;
-
   --linea: rgba(245, 196, 0, 0.18);
-
   --contenedor: 1180px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 120px; }
 
 body {
-  font-family:
-    Impact,
-    Haettenschweiler,
-    "Arial Narrow Bold",
-    sans-serif;
-
+  font-family: 'Bebas Neue', Impact, sans-serif;
   background: var(--negro);
   color: var(--blanco);
-
   overflow-x: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-.contenedor {
-  width: min(100% - 32px, var(--contenedor));
-  margin-inline: auto;
-}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+.contenedor { width: min(100% - 32px, var(--contenedor)); margin-inline: auto; }
 
 /* HEADER */
+.header { position: sticky; top: 0; z-index: 50; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid var(--linea); backdrop-filter: blur(8px); }
+.header-contenido { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; }
+.nav { display: flex; gap: 34px; text-transform: uppercase; font-size: 1.1rem; }
+.nav a:hover { color: var(--amarillo); }
 
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-
-  background: rgba(0,0,0,0.92);
-
-  border-bottom: 1px solid var(--linea);
-
-  backdrop-filter: blur(8px);
+/* BOTONES - ESTILO LLAMATIVO */
+.boton-whatsapp-header, .boton-principal, .boton-secundario, .boton-contacto {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 60px; padding-inline: 40px; border-radius: 4px; font-weight: 900;
+  font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.1em;
+  transition: 0.2s ease; cursor: pointer; border: none;
 }
-
-.header-contenido {
-  min-height: 76px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 24px;
-}
-
-.logo {
-  font-size: 1.2rem;
-  font-weight: 900;
-
-  letter-spacing: -0.03em;
-}
-
-.nav {
-  display: flex;
-  gap: 34px;
-
-  text-transform: uppercase;
-}
-
-.nav a {
-  transition: 0.2s ease;
-}
-
-.nav a:hover {
-  color: var(--amarillo);
-}
-
-/* BOTONES */
-
-.boton-whatsapp-header,
-.boton-principal,
-.boton-secundario,
-.boton-contacto {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 54px;
-
-  padding-inline: 26px;
-
-  border-radius: 6px;
-
-  font-weight: 900;
-
-  text-transform: uppercase;
-
-  transition: 0.18s ease;
-}
-
-.boton-whatsapp-header,
-.boton-principal,
-.boton-contacto {
-  background: var(--amarillo);
-
-  color: #050505;
-}
-
-.boton-whatsapp-header:hover,
-.boton-principal:hover,
-.boton-contacto:hover {
-  background: var(--amarillo-oscuro);
-
-  transform: translateY(-2px);
-}
-
-.boton-secundario {
-  border: 1px solid var(--amarillo);
-
-  color: var(--amarillo);
-}
-
-.boton-secundario:hover {
-  background: var(--amarillo);
-
-  color: #050505;
-}
-
-/* HERO */
-
-/* HERO */
-
-.hero {
-  position: relative;
-  min-height: calc(100vh - 76px);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,0.98) 0%,
-      rgba(0,0,0,0.94) 34%,
-      rgba(0,0,0,0.56) 54%,
-      rgba(0,0,0,0.08) 100%
-    ),
-    url("../img/camara-bg.png");
-
-background-size: 76%;
-background-position: 132% center;
-  background-repeat: no-repeat;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 82% 48%, rgba(245,196,0,0.18), transparent 24%),
-    linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.42));
-  pointer-events: none;
-}
-
-.hero-grid {
-  position: relative;
-  z-index: 2;
-  width: min(100% - 32px, 1180px);
-  margin-inline: auto;
-}
-
-.hero-texto {
-  max-width: 720px;
-  padding-top: 34px;
-}
-
-.mini-titulo {
-  color: var(--amarillo);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 18px;
-}
-
-h1 {
-  max-width: 780px;
-  margin-bottom: 24px;
-
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  text-transform: uppercase;
-
-letter-spacing: -0.025em;
-  line-height: 0.82;
-
-  text-shadow:
-    0 4px 0 rgba(0,0,0,0.45),
-    0 0 18px rgba(255,255,255,0.08);
-}
-
-h1 .linea {
-  display: block;
-  font-size: clamp(4.4rem, 7.4vw, 7.2rem);
-}
-
-h1 .blanca {
-  color: var(--blanco);
-}
-
-h1 .amarilla {
-  color: var(--amarillo);
-}
-
-.descripcion {
-  max-width: 520px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--gris);
-  font-size: 1.12rem;
-  line-height: 1.55;
-  margin-bottom: 34px;
-}
-
-.hero-botones {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
-/* SERVICIOS */
-
-.servicios {
-  padding: 58px 0 70px;
-
-  background:
-    radial-gradient(
-      circle at bottom left,
-      rgba(245,196,0,0.1),
-      transparent 26%
-    ),
-    #070707;
-
-  border-top: 1px solid var(--linea);
-}
-
-.servicios-mini {
-  text-align: center;
-
-  color: var(--amarillo);
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-
-  margin-bottom: 30px;
-}
-
-.tarjetas {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 22px;
-}
-
-.tarjeta {
-  padding: 34px;
-
-  border-radius: 10px;
-
-  border: 1px solid rgba(255,255,255,0.12);
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.05),
-      rgba(255,255,255,0.02)
-    );
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.32);
-}
-
-.tarjeta h3 {
-  font-size: 2.3rem;
-
-  margin-bottom: 14px;
-}
-
-.tarjeta p {
-  font-family: Arial, Helvetica, sans-serif;
-
-  color: var(--gris);
-
-  line-height: 1.5;
-
-  font-size: 1.05rem;
-}
+.boton-whatsapp-header { min-height: 44px; padding-inline: 20px; font-size: 1rem; background: var(--amarillo); color: #050505; }
+.boton-principal { background: var(--amarillo); color: #050505; }
+.boton-secundario { border: 2px solid var(--amarillo); background: transparent; color: var(--amarillo); }
+.boton-contacto { background: #050505; color: var(--amarillo); }
+
+/* HERO - COMPACTO Y GRANDE */
+.hero { min-height: 70vh; display: flex; align-items: center; padding: 50px 0; background-color: var(--negro); }
+.hero-grid { width: min(100% - 32px, var(--contenedor)); margin-inline: auto; }
+h1 { margin-bottom: 30px; line-height: 0.8; }
+h1 .linea { display: block; font-size: 7.5rem; }
+.punto-amarillo { color: var(--amarillo); }
+.hero-botones { display: flex; gap: 20px; }
+
+/* SERVICIOS - MÁS CERCA Y PROMINENTES */
+.servicios { padding: 40px 0 80px 0; background: #050505; margin-top: -50px; }
+.servicios-mini { text-align: center; color: var(--amarillo); letter-spacing: 0.2em; margin-bottom: 50px; font-size: 1.3rem; }
+.tarjetas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: min(100% - 32px, var(--contenedor)); margin-inline: auto; }
+.tarjeta { padding: 50px 40px; border-radius: 4px; border: 2px solid #333; background: var(--negro-suave); }
+.tarjeta h3 { font-size: 2.5rem; color: var(--blanco); margin-bottom: 15px; }
+.tarjeta p { font-family: Arial, sans-serif; color: var(--gris); font-size: 1.2rem; line-height: 1.6; }
 
 /* CONTACTO */
-
-.contacto {
-  padding: 36px 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(245,196,0,0.98),
-      rgba(245,196,0,0.86)
-    );
-
-  color: #050505;
-}
-
-.contacto-contenido {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 28px;
-}
-
-.contacto h2 {
-  font-size: clamp(2rem, 4vw, 3.2rem);
-
-  line-height: 0.95;
-
-  margin-bottom: 10px;
-}
-
-.contacto p {
-  font-family: Arial, Helvetica, sans-serif;
-
-  font-size: 1.08rem;
-}
-
-/* MOBILE */
+.contacto { padding: 80px 0; background: var(--amarillo); color: #050505; }
+.contacto-contenido { display: flex; align-items: center; justify-content: space-between; width: min(100% - 32px, var(--contenedor)); margin-inline: auto; }
+.contacto-texto-bloque h2 { font-size: 3rem; margin-bottom: 10px; font-weight: 900; }
+.contacto-texto-bloque p { font-family: Arial, sans-serif; font-size: 1.2rem; font-weight: 700; }
 
 @media (max-width: 850px) {
-
-  .header-contenido {
-    min-height: 64px;
-  }
-
-  .nav {
-    display: none;
-  }
-
-  .logo {
-    font-size: 1rem;
-  }
-
-  .boton-whatsapp-header {
-    min-height: 46px;
-
-    padding-inline: 16px;
-
-    font-size: 0.86rem;
-  }
-
-  .hero {
-    min-height: auto;
-
-    background-position: 72% center;
-  }
-
-  .hero-grid {
-    padding: 82px 0 70px;
-  }
-
-  h1 {
-    font-size: clamp(3rem, 13vw, 4.8rem);
-
-    line-height: 0.9;
-  }
-
-  .descripcion {
-    font-size: 1rem;
-
-    line-height: 1.55;
-  }
-
-  .hero-botones {
-    flex-direction: column;
-  }
-
-  .boton-principal,
-  .boton-secundario,
-  .boton-contacto {
-    width: 100%;
-  }
-
-  .servicios {
-    padding: 44px 0 54px;
-  }
-
-  .servicios-mini {
-    text-align: left;
-
-    font-size: 0.82rem;
-  }
-
-  .tarjetas {
-    grid-template-columns: 1fr;
-
-    gap: 16px;
-  }
-
-  .tarjeta {
-    padding: 24px;
-  }
-
-  .tarjeta h3 {
-    font-size: 2rem;
-  }
-
-  .contacto {
-    padding: 34px 0;
-  }
-
-  .contacto-contenido {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .contacto h2 {
-    font-size: 2.2rem;
-  }
+  .nav { display: none; }
+  .tarjetas { grid-template-columns: 1fr; }
+  .hero { text-align: center; }
+  h1 .linea { font-size: 3.5rem; }
+  .hero-botones { flex-direction: column; }
+  .contacto-contenido { flex-direction: column; text-align: center; gap: 20px; }
 }
